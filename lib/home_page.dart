@@ -117,7 +117,9 @@ class _MainHomePage extends State<StatefulWidget> {
             actions: [
               IconButton(
                 onPressed: () {
-                  setState(() {});
+                  setState(() {
+                    getCurrentWeather(city: "delhi");
+                  });
                 },
                 icon: const Icon(Icons.refresh),
                 iconSize: 30,
