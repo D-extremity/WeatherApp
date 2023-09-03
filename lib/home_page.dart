@@ -24,12 +24,12 @@ class _MainHomePage extends State<StatefulWidget> {
   @override
   void initState() {
     super.initState();
+
     ///to start it as before building of other things to get less awaiting time
-    getCurrentWeather(city:"Ghaziabad");
+    getCurrentWeather(city: "Ghaziabad");
   }
 
   Future getCurrentWeather({required String city}) async {
-    
     try {
       final result = await http.get(
         Uri.parse(
@@ -126,192 +126,194 @@ class _MainHomePage extends State<StatefulWidget> {
               ),
             ],
           ),
-          body: Column(
-            // textDirection: TextDirection.ltr,
-            children: [
-              BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16, right: 16),
-                  child: SizedBox(
-                    height: 230,
-                    width: double.infinity,
-                    child: Card(
-                      color: Colors.grey.shade900,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20)),
-                      shadowColor: const Color.fromARGB(255, 234, 229, 229),
-                      margin: const EdgeInsetsDirectional.only(top: 30),
-                      elevation: 7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            "$temp°C",
-                            style: const TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 60,
-                              color: Colors.white,
-                            ),
-                          ),
-                          Icon(
-                            iconData,
-                            color: Colors.white,
-                            size: 40,
-                          ),
-                          const SizedBox(
-                            height: 10,
-                            width: 40,
-                          ),
-                          Text(
-                            weather,
-                            style: const TextStyle(
+          body: SingleChildScrollView(
+            child: Column(
+              // textDirection: TextDirection.ltr,
+              children: [
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    child: SizedBox(
+                      height: 230,
+                      width: double.infinity,
+                      child: Card(
+                        color: Colors.grey.shade900,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        shadowColor: const Color.fromARGB(255, 234, 229, 229),
+                        margin: const EdgeInsetsDirectional.only(top: 30),
+                        elevation: 7,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              "$temp°C",
+                              style: const TextStyle(
                                 fontWeight: FontWeight.w500,
-                                fontSize: 40,
-                                color: Colors.white),
-                          ),
-                        ],
+                                fontSize: 60,
+                                color: Colors.white,
+                              ),
+                            ),
+                            Icon(
+                              iconData,
+                              color: Colors.white,
+                              size: 40,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                              width: 40,
+                            ),
+                            Text(
+                              weather,
+                              style: const TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 40,
+                                  color: Colors.white),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16, top: 30),
-                  child: Text(
-                    "Weather Forecast",
-                    textAlign: TextAlign.left,
-                    // textDirection: TextDirection.ltr,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30,
-                        color: Colors.white),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16, top: 30),
+                    child: Text(
+                      "Weather Forecast",
+                      textAlign: TextAlign.left,
+                      // textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              Container(
-                height: 150,
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 3),
-                // child: SingleChildScrollView(
-                //   scrollDirection: Axis.horizontal,
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                //     children: [
-                //       for (int i = 1; i <= 8; i++)
-                //         HourlyForecast(
-                //           time:
-                //               "${DateTime.parse(data['list'][i]['dt_txt']).hour}:${DateTime.parse(data['list'][i]['dt_txt']).minute}",
-                //           icon: skYIcon(
-                //               data['list'][i]['weather'][0]['main'].toString()),
-                //           temp: (data['list'][0]['main']['temp'] - 273)
-                //               .toString()
-                //               .substring(0, 4),
-                //         ),
-                //     ],
-                //   ),
-                // ),
+                Container(
+                  height: 150,
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 3),
+                  // child: SingleChildScrollView(
+                  //   scrollDirection: Axis.horizontal,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  //     children: [
+                  //       for (int i = 1; i <= 8; i++)
+                  //         HourlyForecast(
+                  //           time:
+                  //               "${DateTime.parse(data['list'][i]['dt_txt']).hour}:${DateTime.parse(data['list'][i]['dt_txt']).minute}",
+                  //           icon: skYIcon(
+                  //               data['list'][i]['weather'][0]['main'].toString()),
+                  //           temp: (data['list'][0]['main']['temp'] - 273)
+                  //               .toString()
+                  //               .substring(0, 4),
+                  //         ),
+                  //     ],
+                  //   ),
+                  // ),
 
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      ///Custom made time
-                      /* String meredian = "AM";
-                      int  hour =
-                          DateTime.parse(data['list'][index + 1]['dt_txt'])
-                              .hour;
-                      if (hour >= 12 && hour < 24) {
-                        meredian = "PM";
-                      }
-                      if (hour > 12) {
-                        hour -= 12;
-                      } else if (hour == 0) {
-                        hour = 12;
-                      }
-                      final String time = "${hour.abs()} $meredian";*/
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 8,
+                      itemBuilder: (context, index) {
+                        ///Custom made time
+                        /* String meredian = "AM";
+                        int  hour =
+                            DateTime.parse(data['list'][index + 1]['dt_txt'])
+                                .hour;
+                        if (hour >= 12 && hour < 24) {
+                          meredian = "PM";
+                        }
+                        if (hour > 12) {
+                          hour -= 12;
+                        } else if (hour == 0) {
+                          hour = 12;
+                        }
+                        final String time = "${hour.abs()} $meredian";*/
 
-                      ///Using Package intl now
-                      ///read documentation at pub.cev
-                      ///can be done like also
-                      /// final time = DateFormat('j').format(DateTime.parse(data['list'][index + 1]['dt_txt']));
+                        ///Using Package intl now
+                        ///read documentation at pub.cev
+                        ///can be done like also
+                        /// final time = DateFormat('j').format(DateTime.parse(data['list'][index + 1]['dt_txt']));
 
-                      final time = DateFormat.j().format(
-                          DateTime.parse(data['list'][index + 1]['dt_txt']));
+                        final time = DateFormat.j().format(
+                            DateTime.parse(data['list'][index + 1]['dt_txt']));
 
-                      //index+1 was not rrequired but did it because index starts from 0 and Oth value we are already showing in main card above
-                      final IconData iconIs = skYIcon(data['list'][index + 1]
-                              ['weather'][0]['main']
-                          .toString());
-                      final String temp =
-                          (data['list'][index + 1]['main']['temp'] - 273)
-                              .toString()
-                              .substring(0, 4);
-                      return HourlyForecast(
-                          time: time.toString(), icon: iconIs, temp: temp);
-                    }),
-              ),
-              const SizedBox(
-                height: 15,
-                width: 20,
-              ),
-              const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.only(left: 16),
-                  child: Text(
-                    "Additional Information",
-                    // textDirection: TextDirection.ltr,
-                    style: TextStyle(
-                        fontWeight: FontWeight.w500,
-                        fontSize: 30,
-                        color: Colors.white),
+                        //index+1 was not rrequired but did it because index starts from 0 and Oth value we are already showing in main card above
+                        final IconData iconIs = skYIcon(data['list'][index + 1]
+                                ['weather'][0]['main']
+                            .toString());
+                        final String temp =
+                            (data['list'][index + 1]['main']['temp'] - 273)
+                                .toString()
+                                .substring(0, 4);
+                        return HourlyForecast(
+                            time: time.toString(), icon: iconIs, temp: temp);
+                      }),
+                ),
+                const SizedBox(
+                  height: 15,
+                  width: 20,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 16),
+                    child: Text(
+                      "Additional Information",
+                      // textDirection: TextDirection.ltr,
+                      style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 30,
+                          color: Colors.white),
+                    ),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    children: [
-                      Additional(
-                        icon: Icons.water_drop_outlined,
-                        title: "Humidity",
-                        value: "$humid%",
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Additional(
-                          icon: Icons.air_sharp,
-                          title: "Wind Speed",
-                          value: "$speed km/hr")
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Additional(
-                        icon: Icons.downloading_sharp,
-                        title: "Pressure",
-                        value: "$pressure hPa",
-                      )
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Additional(
-                        icon: Icons.wb_sunny_outlined,
-                        title: "Max Temp",
-                        value: "$maxTemp°C",
-                      )
-                    ],
-                  ),
-                ],
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        Additional(
+                          icon: Icons.water_drop_outlined,
+                          title: "Humidity",
+                          value: "$humid%",
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Additional(
+                            icon: Icons.air_sharp,
+                            title: "Wind Speed",
+                            value: "$speed km/hr")
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Additional(
+                          icon: Icons.downloading_sharp,
+                          title: "Pressure",
+                          value: "$pressure hPa",
+                        )
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        Additional(
+                          icon: Icons.wb_sunny_outlined,
+                          title: "Max Temp",
+                          value: "$maxTemp°C",
+                        )
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
         );
       },
