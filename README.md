@@ -1,8 +1,8 @@
 # Weather App
 # Real Time Data
-Currently its basic ....
 
-![Alt text](Screenshot_1693739268.png)
+
+![image](https://github.com/D-extremity/WeatherApp/assets/83233310/eb9dd620-e6bc-45b9-b1cf-b5cbcff74a8e)
 
 
 
