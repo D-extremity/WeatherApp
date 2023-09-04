@@ -73,7 +73,7 @@ class _MainHomePage extends State<StatefulWidget> {
               child: const CircularProgressIndicator.adaptive());
         }
         if (snapshot.hasError) {
-          return const Center(child: Text("😭1. Check your connection \n2. Server Issue \n3. Place not found \n4. Please restart the app",style: TextStyle(fontSize: 40,fontStyle: FontStyle.italic),));
+          return const Center(child: Text("1. Check your connection \n2. Server Issue \n3. Place not found \n4. Please restart the app",style: TextStyle(fontSize: 40,fontStyle: FontStyle.italic),));
         }
         
         
@@ -174,7 +174,7 @@ class _MainHomePage extends State<StatefulWidget> {
                   hoverColor: Colors.black,
                 ),
                 const SizedBox(
-                  width: 45,
+                  width: 10,
                 ),
               ],
             ),
