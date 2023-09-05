@@ -127,29 +127,35 @@ class _MainHomePage extends State<StatefulWidget> {
               backgroundColor: Colors.grey.shade900,
               elevation: 0,
               actions: [
-                SizedBox(
-                  width: 180,
-                  height: double.infinity,
-                  child: TextField(
-                    enableInteractiveSelection: true,
-                    
-                    onTapOutside: (event) =>
-                        FocusScope.of(context).requestFocus(new FocusNode()),
-                    controller: getCity,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 20,
+                
+                Column(
+                  children: [
+                    SizedBox(height: 8,),
+                    SizedBox(
+                      width: 180,
+                      height: 40,
+                      child: TextField(
+                        enableInteractiveSelection: true,
+                        
+                        onTapOutside: (event) =>
+                            FocusScope.of(context).requestFocus(FocusNode()),
+                        controller: getCity,
+                        style: const TextStyle(textBaseline: TextBaseline.ideographic,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500,
+                          fontSize: 20,
+                        ),
+                        decoration: const InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25))),
+                          focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(25))),
+                              
+                          hintText: "  Patna , Bihar",
+                        ),
+                      ),
                     ),
-                    decoration: const InputDecoration(
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(25))),
-                          
-                      hintText: "Patna , Bihar",
-                    ),
-                  ),
+                  ],
                 ),
                 IconButton(
                   onPressed: () {
