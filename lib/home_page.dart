@@ -6,6 +6,7 @@ import 'dart:ui';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 import 'package:weather/additional_info.dart';
 import 'package:weather/hourly_forecast.dart';
 import 'package:weather/meant_to_be_hidden.dart';
@@ -36,7 +37,6 @@ class _MainHomePage extends State<StatefulWidget> {
 
   Future getCurrentWeather({required String city}) async {
     try {
-  
       final result = await http.get(
         Uri.parse(
           "https://api.openweathermap.org/data/2.5/forecast?q=$city&APPID=$appId",
@@ -46,14 +46,15 @@ class _MainHomePage extends State<StatefulWidget> {
       final data = jsonDecode(result.body);
       // print(data['cod'].runtimeType);
       if (data['cod'] != '200') {
-        throw "Error Occurred";
+        setState(() {
+          newCity = "Delhi";
+        });
       }
 
       return data; //returning fetched api data
     } catch (e) {
       // ignore: use_build_context_synchronously
-      ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Not Found")));
+      throw "Error Occured";
     }
     // print(data['list'][0]['weather'][0]['description']);
 
@@ -70,15 +71,15 @@ class _MainHomePage extends State<StatefulWidget> {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return Container(
               alignment: Alignment.center,
-              child: const CircularProgressIndicator.adaptive());
+              child: Lottie.asset("assets/animation/satellite.json",
+                  animate: true));
         }
         if (snapshot.hasError) {
-          return const Center(child: Text("1. Check your connection \n2. Server Issue \n3. Place not found \n4. Please restart the app",style: TextStyle(fontSize: 40,fontStyle: FontStyle.italic),));
+          throw "Error Occured";
         }
-        
-        
+
         final data = snapshot.data!;
-        
+
         double mainTemp = data['list'][0]['main']['temp'] - 273;
         weather = data['list'][0]['weather'][0]['description'];
         temp = mainTemp.toStringAsFixed(1);
@@ -127,31 +128,33 @@ class _MainHomePage extends State<StatefulWidget> {
               backgroundColor: Colors.grey.shade900,
               elevation: 0,
               actions: [
-                
                 Column(
                   children: [
-                    SizedBox(height: 8,),
+                    const SizedBox(
+                      height: 8,
+                    ),
                     SizedBox(
                       width: 180,
                       height: 40,
                       child: TextField(
                         enableInteractiveSelection: true,
-                        
                         onTapOutside: (event) =>
                             FocusScope.of(context).requestFocus(FocusNode()),
                         controller: getCity,
-                        style: const TextStyle(textBaseline: TextBaseline.ideographic,
+                        style: const TextStyle(
+                          textBaseline: TextBaseline.ideographic,
                           color: Colors.white,
                           fontWeight: FontWeight.w500,
                           fontSize: 20,
                         ),
                         decoration: const InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
                           focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.all(Radius.circular(25))),
-                              
-                          hintText: "  Patna , Bihar",
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
+                          hintText: "  Patna",
                         ),
                       ),
                     ),
@@ -161,13 +164,14 @@ class _MainHomePage extends State<StatefulWidget> {
                   onPressed: () {
                     if (getCity.text.toString().isNotEmpty) {
                       // print(getCity.text.toString());
-                      try{
-                      setState(() {
-                        newCity = getCity.text.toString();
-                      });}
-                      catch(e){
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text("Not Found")));
+                      try {
+                        setState(() {
+                          newCity = getCity.text.toString();
+                        });
+                      } catch (e) {
+                        setState(() {
+                          newCity = "delhi";
+                        });
                       }
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
@@ -205,7 +209,8 @@ class _MainHomePage extends State<StatefulWidget> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(newCity.substring(0,1).toUpperCase()+newCity.substring(1)),
+                              Text(newCity.substring(0, 1).toUpperCase() +
+                                  newCity.substring(1)),
                               Text(
                                 "$temp°C",
                                 style: const TextStyle(
