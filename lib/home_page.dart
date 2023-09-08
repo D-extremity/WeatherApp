@@ -162,11 +162,11 @@ class _MainHomePage extends State<StatefulWidget> {
                 ),
                 IconButton(
                   onPressed: () {
-                    if (getCity.text.toString().isNotEmpty) {
+                    if (getCity.text.toString().trim().isNotEmpty ) {
                       // print(getCity.text.toString());
                       try {
                         setState(() {
-                          newCity = getCity.text.toString();
+                          newCity = getCity.text.toString().trim();
                         });
                       } catch (e) {
                         setState(() {
